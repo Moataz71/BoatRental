@@ -1,6 +1,12 @@
 package com.capgemini.molveno.BoatRental.boat;
 
+import javax.persistence.*;
+
+@Entity
+@Table (name = "Boat")
 public class Boat {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String boatNumber;
     private int numberOfSeat;

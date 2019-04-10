@@ -3,11 +3,23 @@ package com.capgemini.molveno.BoatRental.reservation;
 import com.capgemini.molveno.BoatRental.boat.Boat;
 import com.capgemini.molveno.BoatRental.guest.Guest;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table (name = "Reservation")
 
 public class Reservation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @JoinColumn(name = "guestid", referencedColumnName = "id")
+    @OneToOne
     private Guest guest;
+    @JoinColumn(name = "boatid", referencedColumnName = "id")
+    @OneToOne
     private Boat boat;
     private int numberOfPersons;
     private LocalDateTime startTime;

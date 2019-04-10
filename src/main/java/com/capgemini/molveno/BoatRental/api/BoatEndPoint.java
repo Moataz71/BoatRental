@@ -14,6 +14,7 @@ import java.util.List;
 public class BoatEndPoint {
     @Autowired
     private BoatRepository boatRepository;
+
     @RequestMapping(value = "/add-boat", method = RequestMethod.POST,consumes = "application/json")
     public void addBoat(@RequestBody Boat boat) {
         boatRepository.save(boat);
