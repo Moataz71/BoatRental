@@ -3,14 +3,13 @@ package com.capgemini.molveno.BoatRental.api;
 import com.capgemini.molveno.BoatRental.boat.Boat;
 import com.capgemini.molveno.BoatRental.controller.BoatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
+
 public class BoatEndPoint {
     @Autowired
     private BoatRepository boatRepository;

@@ -55,6 +55,7 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-
-
+    public String toString() {
+        return id +" " + idNumber+ " " +  name+" " +  phoneNumber+ " " + idType;
+    }
 }

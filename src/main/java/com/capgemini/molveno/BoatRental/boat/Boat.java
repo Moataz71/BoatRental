@@ -11,7 +11,7 @@ public class Boat {
     private String boatNumber;
     private int numberOfSeat;
     private String type;
-    private int price;
+    private boolean onTrip;
     private boolean maintance;
 
     public long getId() {
@@ -46,12 +46,12 @@ public class Boat {
         this.type = type;
     }
 
-    public int getPrice() {
-        return price;
+    public boolean isOnTrip() {
+        return onTrip;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setOnTrip(boolean onTrip) {
+        this.onTrip = onTrip;
     }
 
     public boolean isMaintance() {
