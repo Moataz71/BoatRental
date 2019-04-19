@@ -9,54 +9,49 @@ import java.util.List;
 
 public class TripService {
 
-    public static boolean checkDateTimeForTrip(LocalDateTime startTimeTrip , List<Reservation> currentReservations) {
+    public static boolean checkDateTimeForTrip(LocalDateTime startTimeTrip , List<Reservation> currentReservations, Boat boat) {
+        long boatId = boat.getId();
 
+//        for (Reservation current : currentReservations){
+//         if (   startTimeTrip.toLocalDate().isEqual(current.getStartTime().toLocalDate()) & (current.getStartTime()).isAfter(startTimeTrip) ){
+//             return false;}
+//        }
 
         for (Reservation current : currentReservations) {
-
-            if (startTimeTrip.isAfter(current.getStartTime()) & startTimeTrip.isBefore((current.getEndTime()).plusHours(1))) {
-                return false;
+            if ( startTimeTrip.toLocalDate().isEqual(current.getStartTime().toLocalDate()) & current.getBoat().getId() != boatId) {
+                continue;
             }
 
-            if (startTimeTrip.isEqual(current.getStartTime()) ) {
-                return false;
-            }
-
-
-        }
-
-        return true;
-    }
-    public static List<Boat> getAvailableBoatsForTrip(LocalDateTime startTimeTrip, List<Boat> allBoats, List<Reservation> reservations) {
-        List<Boat> availableBoats = new ArrayList<>();
-        for (Boat boat : allBoats) {
-            for (Reservation current : reservations) {
-                if (boat.getId() != (current.getBoat().getId())) {
-                    availableBoats.add(boat);
-                } else {
-                    if (checkDateTimeForTrip(startTimeTrip, reservations))
-
-                        availableBoats.add(boat);
-
+                if (startTimeTrip.isAfter(current.getStartTime()) & startTimeTrip.isBefore((current.getEndTime()).plusHours(1))) {
+                    return false;
                 }
 
-            }
+                if (startTimeTrip.isEqual(current.getStartTime())) {
+                    return false;
+                }
 
 
         }
+            return true;
+
+    }
+    public static List<Boat> getAvailableBoatsForTrip(LocalDateTime startTimeTrip, int numberOfPersons, List<Boat> allBoats, List<Reservation> reservations) {
+        List<Boat> availableBoats = new ArrayList<>();
+        
+        for (Boat boat : allBoats) {
+
+                    if (checkDateTimeForTrip(startTimeTrip, reservations,boat)) {
+                        if (numberOfPersons < boat.getNumberOfSeat())
+                        availableBoats.add(boat);
+                    }
+
+
+            }
+
+
+
         return availableBoats;
     }
     }
 
-//        public static List<LocalTime> getReservationsStartTimes(LocalDateTime startTimeTrip, List<Reservation> reservations) {
-//            List reservationStartTimes = new ArrayList();
-//            for (Reservation res : reservations) {
-//                if ( startTimeTrip.isBefore(res.getStartTime()) & (startTimeTrip.toLocalDate().isEqual(res.getStartTime().toLocalDate())))
-//                {
-//                    reservationStartTimes.add(res.getStartTime().toLocalTime());
-//                }
-//            }
-//            return reservationStartTimes;
-//        }
-//
-//}
+

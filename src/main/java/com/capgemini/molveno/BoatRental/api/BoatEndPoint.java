@@ -34,5 +34,15 @@ public class BoatEndPoint {
         return boatRepository.findById(boat.getId());
     }
 
+    @RequestMapping(value = "/edit-boat", method = RequestMethod.POST,consumes = "application/json")
+    public void editBoat(@RequestBody Boat boat) {
+        Boat b = boatRepository.findById(boat.getId());
+        b.setBoatNumber(boat.getBoatNumber());
+        b.setNumberOfSeat(boat.getNumberOfSeat());
+        b.setMaintance(boat.isMaintance());
+        b.setOnTrip(boat.isOnTrip());
+        boatRepository.save(b);
+    }
+
 
 }

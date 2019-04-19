@@ -51,13 +51,15 @@ public class ReservationEndPoint {
     }
 
     @RequestMapping(value = "/get-availableboats", method = RequestMethod.GET)
-    public List getAvailable(@RequestParam String localDateTime1, String localDateTime2) {
+    public List getAvailable(@RequestParam String localDateTime1, String localDateTime2, String numberofpersons1) {
 
         LocalDateTime startTime = LocalDateTime.parse(localDateTime1);
         System.out.println(startTime);
         LocalDateTime endTime = LocalDateTime.parse(localDateTime2);
         System.out.println(endTime);
-        List<Boat> AvailableBoats = getAvailableBoats(startTime, endTime, boatRepository.findAll(), reservationRepository.findAll());
+        int numberofpersons = Integer.parseInt(numberofpersons1);
+        List<Boat> AvailableBoats = getAvailableBoats(startTime, endTime,numberofpersons ,boatRepository.findAll(), reservationRepository.findAll());
+        System.out.println(AvailableBoats);
         return AvailableBoats;
     }
 }

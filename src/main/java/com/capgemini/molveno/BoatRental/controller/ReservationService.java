@@ -25,7 +25,7 @@ public class ReservationService {
             if (min.isAfter(current.getStartTime()) & min.isBefore((current.getEndTime()).plusHours(1))) {
                 return false;
             }
-            if (min.isEqual(current.getStartTime()) & max.isEqual((current.getEndTime()).plusHours(1))) {
+            if (min.isEqual(current.getStartTime()) | max.isEqual((current.getEndTime()).plusHours(1))) {
                 return false;
             }
 
@@ -34,10 +34,11 @@ public class ReservationService {
         return true;
     }
 
-    public static List<Boat> getAvailableBoats(LocalDateTime startTimeRequrest,LocalDateTime endTimeRequest, List<Boat> allBoats, List<Reservation> reservations) {
+    public static List<Boat> getAvailableBoats(LocalDateTime startTimeRequrest,LocalDateTime endTimeRequest,int numberOfPersons, List<Boat> allBoats, List<Reservation> reservations) {
         List<Boat> availableBoats = new ArrayList<>();
         for (Boat boat : allBoats) {
             if (checkDateTime(startTimeRequrest ,endTimeRequest, reservations, boat)) {
+                if (numberOfPersons < boat.getNumberOfSeat())
                 availableBoats.add(boat);
 
             }

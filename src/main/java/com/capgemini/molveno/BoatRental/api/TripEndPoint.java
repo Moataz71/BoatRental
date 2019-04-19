@@ -27,7 +27,14 @@ public class TripEndPoint {
 
     @RequestMapping(value = "/add-trip", method = RequestMethod.POST,consumes = "application/json")
     public void addTrip(@RequestBody Trip trip) {
+        Boat b = boatRepository.findById(trip.getBoat().getId());
+        b.setOnTrip(true);
         tripRepository.save(trip);
+    }
+
+    @RequestMapping(value = "/delete-trip", method = RequestMethod.DELETE)
+    public void deleteTrip(@RequestBody Trip trip) {
+        tripRepository.deleteById(trip.getId());
     }
 
 
@@ -36,20 +43,20 @@ public class TripEndPoint {
         return tripRepository.findAll();
     }
 
-    @RequestMapping(value = "/edit-trip", method = RequestMethod.POST,consumes = "application/json")
-    public void editTrip(@RequestBody Trip trip) {
+    @RequestMapping(value = "/end-trip", method = RequestMethod.POST,consumes = "application/json")
+    public void endTrip(@RequestBody Trip trip) {
         Trip t = tripRepository.findById(trip.getId());
-        t.setBoat(trip.getBoat());
-        t.setStartTime(trip.getStartTime());
-        t.setNumberOfPersons(trip.getNumberOfPersons());
+        Boat b = boatRepository.findById(t.getBoat().getId());
+        b.setOnTrip(false);
         tripRepository.save(t);
     }
     @RequestMapping(value = "/get-availableboatsfortrip", method = RequestMethod.GET)
-    public List getAvailableForTrip(@RequestParam String localDateTime1) {
+    public List getAvailableForTrip(@RequestParam String localDateTime1, String numberofpersons1) {
 
         LocalDateTime startTime = LocalDateTime.parse(localDateTime1);
         System.out.println(startTime);
-        List<Boat> AvailableBoatsForTrip = getAvailableBoatsForTrip(startTime, boatRepository.findAll(), reservationRepository.findAll());
+        int numberofpersons = Integer.parseInt(numberofpersons1);
+        List<Boat> AvailableBoatsForTrip = getAvailableBoatsForTrip(startTime,numberofpersons, boatRepository.findAll(), reservationRepository.findAll());
         return AvailableBoatsForTrip;
     }
 }
