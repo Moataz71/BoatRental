@@ -73,5 +73,12 @@ public class Reservation {
         this.endTime = endTime;
     }
 
+    public int getStartTimeHour() {
+        return startTime.getHour();
+    }
+
+
+
+
     // created by Moataz
 }

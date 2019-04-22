@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.capgemini.molveno.BoatRental.controller.TripService.getAvailableBoatsForTrip;
@@ -51,12 +52,12 @@ public class TripEndPoint {
         tripRepository.save(t);
     }
     @RequestMapping(value = "/get-availableboatsfortrip", method = RequestMethod.GET)
-    public List getAvailableForTrip(@RequestParam String localDateTime1, String numberofpersons1) {
+    public HashMap<Long, LocalDateTime> getAvailableForTrip(@RequestParam String localDateTime1, String numberofpersons1) {
 
         LocalDateTime startTime = LocalDateTime.parse(localDateTime1);
         System.out.println(startTime);
         int numberofpersons = Integer.parseInt(numberofpersons1);
-        List<Boat> AvailableBoatsForTrip = getAvailableBoatsForTrip(startTime,numberofpersons, boatRepository.findAll(), reservationRepository.findAll());
+        HashMap<Long, LocalDateTime> AvailableBoatsForTrip = getAvailableBoatsForTrip(startTime,numberofpersons, boatRepository.findAll(), reservationRepository.findAll());
         return AvailableBoatsForTrip;
     }
 }
