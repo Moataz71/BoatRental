@@ -24,24 +24,12 @@ public class TripService {
                 continue;
             }
 
-//            if ( startTimeTrip.toLocalDate().isEqual(current.getStartTime().toLocalDate()) & current.getBoat().getId() != boatId) {
-//                return true;
-//            }
             if (startTimeTrip.isAfter(current.getStartTime().minusHours(2)) & startTimeTrip.isBefore((current.getEndTime()).plusHours(1))) {
                 return false;
             }
             if (startTimeTrip.isEqual(current.getStartTime())) {
                 return false;
             }
-
-
-//                if ( startTimeTrip.toLocalDate().isEqual(current.getStartTime().toLocalDate()) & startTimeTrip.isAfter((current.getEndTime()).plusHours(1))) {
-//                    return true;
-//                }
-
-
-
-
 
 
         }
@@ -57,11 +45,8 @@ public class TripService {
 
         for (Boat boat : allBoats) {
                     if (checkDateTimeForTrip(startTimeTrip, reservations,boat)) {
-                        if (numberOfPersons < boat.getNumberOfSeat())
+                        if ((numberOfPersons < boat.getNumberOfSeat()) & (boat.isOnTrip()==false)  )
                         availableBoats.add(boat);
-//                        if(!boatsWithStartTime.containsKey(boat.getId()));
-
-
 
                     }
 
@@ -76,7 +61,13 @@ public class TripService {
             }
         }
 
+
         for (Boat boat : availableBoats){
+            if (restoday.size() == 0){
+                boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
+
+
+
 
             for (Reservation res : restoday){
                 if (boat.getId() == res.getBoat().getId()){
@@ -89,7 +80,7 @@ public class TripService {
                     else{
                         LocalDateTime l1 = boatsWithStartTime.get(boat.getId());
                         LocalDateTime l2 = res.getStartTime();
-                        LocalDateTime l3 = LocalDateTime.parse("2019-04-22T20:00");
+                        LocalDateTime l3 = LocalDateTime.now();
                         System.out.println(l3);
                         if (l2.isAfter(l1) & l2.isAfter(l3) & l1.isBefore(l3)){
                         boatsWithStartTime.replace(boat.getId(), l2);}
@@ -102,6 +93,9 @@ public class TripService {
                         boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
 
                 }
+
+
+
 
             }
         }

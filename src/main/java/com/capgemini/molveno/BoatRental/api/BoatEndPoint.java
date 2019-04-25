@@ -31,6 +31,7 @@ public class BoatEndPoint {
 
     @RequestMapping(value = "/get-boat", method = RequestMethod.GET)
     public Boat getBoat(@RequestBody Boat boat) {
+        System.out.println(boat.getId());
         return boatRepository.findById(boat.getId());
     }
 

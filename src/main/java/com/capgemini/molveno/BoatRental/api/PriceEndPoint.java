@@ -24,6 +24,11 @@ public class PriceEndPoint {
         priceRepository.save(price);
     }
 
+    @RequestMapping(value = "/get-allprices", method = RequestMethod.GET)
+    public List<Price> getAllPrices() {
+        return priceRepository.findAll();
+    }
+
 
 
     @RequestMapping(value = "/edit-price", method = RequestMethod.POST,consumes = "application/json")

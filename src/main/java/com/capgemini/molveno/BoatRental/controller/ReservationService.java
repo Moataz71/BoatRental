@@ -38,12 +38,15 @@ public class ReservationService {
         List<Boat> availableBoats = new ArrayList<>();
         for (Boat boat : allBoats) {
             if (checkDateTime(startTimeRequrest ,endTimeRequest, reservations, boat)) {
-                if (numberOfPersons < boat.getNumberOfSeat())
+                if ((numberOfPersons < boat.getNumberOfSeat() )& (boat.isOnTrip()==false))
                 availableBoats.add(boat);
 
             }
 
         }
+
+
+
 
         return availableBoats;
 
