@@ -9,7 +9,7 @@ public class Price {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private static int pricePerHour ;
+    private  int pricePerHour ;
 
     public long getId() {
         return id;

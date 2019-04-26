@@ -13,6 +13,7 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  long id ;
     private LocalDateTime startTime;
+    private boolean active;
     private int numberOfPersons;
     @JoinColumn(name = "boatid", referencedColumnName = "id")
     @OneToOne
@@ -48,5 +49,13 @@ public class Trip {
 
     public void setBoat(Boat boat) {
         this.boat = boat;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

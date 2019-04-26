@@ -30,6 +30,7 @@ public class TripEndPoint {
     public void addTrip(@RequestBody Trip trip) {
         Boat b = boatRepository.findById(trip.getBoat().getId());
         b.setOnTrip(true);
+        trip.setActive(true);
         tripRepository.save(trip);
     }
 
@@ -47,6 +48,7 @@ public class TripEndPoint {
     @RequestMapping(value = "/end-trip", method = RequestMethod.POST,consumes = "application/json")
     public void endTrip(@RequestBody Trip trip) {
         Trip t = tripRepository.findById(trip.getId());
+        t.setActive(false);
         Boat b = boatRepository.findById(t.getBoat().getId());
         b.setOnTrip(false);
         tripRepository.save(t);

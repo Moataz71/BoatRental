@@ -63,9 +63,10 @@ public class TripService {
 
 
         for (Boat boat : availableBoats){
-            if (restoday.size() == 0){
-                boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
+            if (restoday.size() == 0) {
+                boatsWithStartTime.put(boat.getId(), LocalDateTime.now().plusDays(1));
 
+            }
 
 
 
@@ -76,22 +77,31 @@ public class TripService {
 //                        LocalDateTime l3 = LocalDateTime.parse("2019-04-22T20:00");
 //                        if (l2.isAfter(l3))
                     boatsWithStartTime.put(boat.getId(),res.getStartTime());
+
                     }
                     else{
                         LocalDateTime l1 = boatsWithStartTime.get(boat.getId());
                         LocalDateTime l2 = res.getStartTime();
                         LocalDateTime l3 = LocalDateTime.now();
-                        System.out.println(l3);
+//                        System.out.println(l3);
                         if (l2.isAfter(l1) & l2.isAfter(l3) & l1.isBefore(l3)){
                         boatsWithStartTime.replace(boat.getId(), l2);}
                         if (l2.isAfter(l1) & l2.isBefore(l3) & l1.isBefore(l3)){
                             boatsWithStartTime.replace(boat.getId(), l2);}
                     }
                 }
-               else if (boat.getId() != res.getBoat().getId()){
-                    if(!boatsWithStartTime.containsKey(boat.getId())){
-                        boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
+//               else if (boat.getId() != res.getBoat().getId()){
+//                   if(!boatsWithStartTime.containsKey(boat.getId())){
+//                        boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
+//
+//                }
 
+                for (LocalDateTime i : boatsWithStartTime.values()) {
+                    System.out.println("hi"+i);
+
+                }
+                for (long i : boatsWithStartTime.keySet()) {
+                    System.out.println("hi"+i);
                 }
 
 
@@ -101,21 +111,21 @@ public class TripService {
         }
 
 
-        System.out.println(boatsWithStartTime.size());
-        System.out.println(availableBoats.size());
-        System.out.println(reservations.size());
-        System.out.println(restoday.size());
+//        System.out.println(boatsWithStartTime.size());
+//        System.out.println(availableBoats.size());
+//        System.out.println(reservations.size());
+//        System.out.println(restoday.size());
 
-        for(Reservation r: restoday){
-            System.out.println(r.getStartTime());
-        }
-        for (LocalDateTime i : boatsWithStartTime.values()) {
-            System.out.println(i);
-
-        }
-        for (long i : boatsWithStartTime.keySet()) {
-            System.out.println(i);
-        }
+//        for(Reservation r: restoday){
+//            System.out.println(r.getStartTime());
+//        }
+//        for (LocalDateTime i : boatsWithStartTime.values()) {
+//            System.out.println(i);
+//
+//        }
+//        for (long i : boatsWithStartTime.keySet()) {
+//            System.out.println(i);
+//        }
 
 // Create a Iterator to EntrySet of HashMap
         Iterator<Map.Entry<Long, LocalDateTime>> entryIt = boatsWithStartTime.entrySet().iterator();
@@ -129,9 +139,15 @@ public class TripService {
                 LocalDateTime l1 = entry.getValue().plusDays(1);
                 boatsWithStartTime.replace(entry.getKey(), l1);
             }
+   }
+
+
+        for (Boat boat : availableBoats) {
+
+            if(!boatsWithStartTime.containsKey(boat.getId())){
+                boatsWithStartTime.put(boat.getId(),LocalDateTime.now().plusDays(1));}
+
         }
-
-
 
 
 
